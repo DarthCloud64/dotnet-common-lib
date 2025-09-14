@@ -35,20 +35,20 @@ public class ExceptionHandlingMiddleware
             switch (exception)
             {
                 case BadRequestException e:
-                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     break;
                 case NotFoundException e:
-                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     break;
                 case Exception e:
                     errorResponseDto = new ErrorResponseDto
                     {
                         Message = "Unexpected error occurred.",
                     };
-                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorResponseDto));
                     break;
             }
         }
